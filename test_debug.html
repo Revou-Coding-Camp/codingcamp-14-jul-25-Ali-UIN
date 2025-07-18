@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Debug Test</title>
+  </head>
+  <body>
+    <h1>Debug Test - Date Picker</h1>
+
+    <form id="testForm">
+      <label for="testBirthdate">Test Tanggal Lahir:</label>
+      <input type="date" id="testBirthdate" name="testBirthdate" />
+      <br /><br />
+      <button type="button" onclick="testUpdate()">Test Update</button>
+    </form>
+
+    <div id="testDisplay">
+      <h2>Display:</h2>
+      <p>Tanggal: <span id="testDisplayBirthdate">-</span></p>
+    </div>
+
+    <script>
+      function testUpdate() {
+        const input = document.getElementById("testBirthdate");
+        const display = document.getElementById("testDisplayBirthdate");
+
+        console.log("Input value:", input.value);
+        console.log("Display element:", display);
+
+        if (input.value) {
+          const date = new Date(input.value);
+          const formatted = date.toLocaleDateString("id-ID", {
+            day: "2-digit",
+            month: "2-digit",
+            year: "numeric",
+          });
+          console.log("Formatted date:", formatted);
+          display.textContent = formatted;
+          console.log("Display updated to:", display.textContent);
+        }
+      }
+
+      // Auto test on change
+      document
+        .getElementById("testBirthdate")
+        .addEventListener("change", testUpdate);
+    </script>
+  </body>
+</html>

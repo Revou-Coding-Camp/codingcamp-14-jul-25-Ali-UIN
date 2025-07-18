@@ -89,8 +89,18 @@ document.addEventListener("DOMContentLoaded", function () {
       displayBirthplace.textContent = birthplace || "-";
     }
     if (displayBirthdate) {
+      console.log(
+        "Before update - displayBirthdate current text:",
+        displayBirthdate.textContent
+      );
+      console.log("Setting displayBirthdate to:", formattedBirthdate);
       displayBirthdate.textContent = formattedBirthdate;
-      console.log("Updated display birthdate to:", formattedBirthdate);
+      console.log(
+        "After update - displayBirthdate text:",
+        displayBirthdate.textContent
+      );
+    } else {
+      console.error("displayBirthdate element not found!");
     }
     if (displayGender) {
       displayGender.textContent = selectedGender ? selectedGender.value : "-";
@@ -224,13 +234,22 @@ document.addEventListener("DOMContentLoaded", function () {
 
   if (birthdateInput) {
     console.log("Adding event listeners to birthdateInput");
-    birthdateInput.addEventListener("blur", validateBirthdate);
+    birthdateInput.addEventListener("blur", function (e) {
+      console.log("Date blur event:", e.target.value);
+      validateBirthdate();
+      updateContactInfo();
+    });
     birthdateInput.addEventListener("change", function (e) {
       console.log("Date changed:", e.target.value);
       updateContactInfo();
     });
     birthdateInput.addEventListener("input", function (e) {
       console.log("Date input:", e.target.value);
+      updateContactInfo();
+    });
+    // Add keyup event for manual typing
+    birthdateInput.addEventListener("keyup", function (e) {
+      console.log("Date keyup:", e.target.value);
       updateContactInfo();
     });
   } else {
@@ -393,4 +412,16 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Initial setup - call updateContactInfo to set initial values
   updateContactInfo();
+
+  // Also set up a timer to periodically check for changes
+  setInterval(function () {
+    if (birthdateInput && birthdateInput.value) {
+      const currentDisplayValue =
+        document.getElementById("displayBirthdate").textContent;
+      if (currentDisplayValue === "-" || currentDisplayValue === "") {
+        console.log("Force updating birthdate display");
+        updateContactInfo();
+      }
+    }
+  }, 1000);
 });
