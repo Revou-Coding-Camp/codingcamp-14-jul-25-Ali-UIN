@@ -2,13 +2,13 @@
 document.addEventListener("DOMContentLoaded", function () {
   const form = document.getElementById("messageForm");
   const nameInput = document.getElementById("name");
-  const emailInput = document.getElementById("email"); // This is actually "Tempat Lahir"
+  const birthplaceInput = document.getElementById("birthplace"); // Changed from email to birthplace
   const subjectInput = document.getElementById("subject");
   const genderInputs = document.querySelectorAll('input[name="gender"]');
 
   // Error message elements
   const nameError = document.getElementById("nameError");
-  const emailError = document.getElementById("emailError");
+  const birthplaceError = document.getElementById("birthplaceError"); // Changed from emailError
   const phoneError = document.getElementById("phoneError");
   const subjectError = document.getElementById("subjectError");
 
@@ -35,7 +35,7 @@ document.addEventListener("DOMContentLoaded", function () {
   // Update contact info display
   function updateContactInfo() {
     const name = nameInput.value.trim();
-    const birthplace = emailInput.value.trim();
+    const birthplace = birthplaceInput.value.trim();
     const message = subjectInput.value.trim();
     const selectedGender = document.querySelector(
       'input[name="gender"]:checked'
@@ -47,13 +47,19 @@ document.addEventListener("DOMContentLoaded", function () {
     const displayGender = document.getElementById("displayGender");
     const displayMessage = document.getElementById("displayMessage");
 
-    // Update with current values, preserve existing values if form is empty
-    if (displayName && name) displayName.textContent = name;
-    if (displayBirthplace && birthplace)
-      displayBirthplace.textContent = birthplace;
-    if (displayGender && selectedGender)
-      displayGender.textContent = selectedGender.value;
-    if (displayMessage && message) displayMessage.textContent = message;
+    // Always update with current values or keep existing if empty
+    if (displayName) {
+      displayName.textContent = name || "Muhammad Irfan Ali";
+    }
+    if (displayBirthplace) {
+      displayBirthplace.textContent = birthplace || "-";
+    }
+    if (displayGender) {
+      displayGender.textContent = selectedGender ? selectedGender.value : "-";
+    }
+    if (displayMessage) {
+      displayMessage.textContent = message || "-";
+    }
   }
 
   // Validation functions
@@ -76,19 +82,19 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function validateBirthplace() {
-    const birthplace = emailInput.value.trim();
+    const birthplace = birthplaceInput.value.trim();
     if (!birthplace) {
-      showError(emailError, "Tempat lahir wajib diisi");
+      showError(birthplaceError, "Tempat lahir wajib diisi");
       return false;
     }
     if (!patterns.birthplace.test(birthplace)) {
       showError(
-        emailError,
+        birthplaceError,
         "Masukkan tempat lahir yang valid (2-50 karakter, hanya huruf dan spasi)"
       );
       return false;
     }
-    clearError(emailError);
+    clearError(birthplaceError);
     updateContactInfo();
     return true;
   }
@@ -142,9 +148,9 @@ document.addEventListener("DOMContentLoaded", function () {
     nameInput.addEventListener("input", updateContactInfo);
   }
 
-  if (emailInput) {
-    emailInput.addEventListener("blur", validateBirthplace);
-    emailInput.addEventListener("input", updateContactInfo);
+  if (birthplaceInput) {
+    birthplaceInput.addEventListener("blur", validateBirthplace);
+    birthplaceInput.addEventListener("input", updateContactInfo);
   }
 
   if (genderInputs) {
@@ -171,13 +177,15 @@ document.addEventListener("DOMContentLoaded", function () {
 
       // If all validations pass
       if (isNameValid && isBirthplaceValid && isGenderValid && isMessageValid) {
+        // Update contact info one final time to ensure display is correct
+        updateContactInfo();
+        
         // Show success message
         alert(
           "Pesan berhasil dikirim! Informasi telah diperbarui di sebelah kanan."
         );
 
-        // DON'T reset form and DON'T call updateContactInfo() again
-        // This preserves the values in the contact info display
+        // DON'T reset form to preserve the displayed values
       } else {
         alert("Mohon lengkapi semua field dengan benar!");
       }
@@ -292,6 +300,6 @@ document.addEventListener("DOMContentLoaded", function () {
     document.body.classList.add("loaded");
   });
 
-  // Initial setup - don't call updateContactInfo() to prevent reset
-  // updateContactInfo();
+  // Initial setup - call updateContactInfo to set initial values
+  updateContactInfo();
 });
