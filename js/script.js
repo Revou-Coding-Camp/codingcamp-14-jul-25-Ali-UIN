@@ -64,17 +64,22 @@ document.addEventListener("DOMContentLoaded", function () {
     // Debug: check if display element exists
     console.log("Display birthdate element:", displayBirthdate);
 
-    // Format date to be more readable
+    // Format date to be more readable (dd/mm/yyyy)
     let formattedBirthdate = "-";
     if (birthdate) {
       try {
+        // Input format is yyyy-mm-dd, we need dd/mm/yyyy
         const date = new Date(birthdate);
-        formattedBirthdate = date.toLocaleDateString("id-ID", {
-          day: "2-digit",
-          month: "2-digit",
-          year: "numeric",
-        });
-        console.log("Formatted birthdate:", formattedBirthdate);
+        // Add one day to fix timezone issues
+        date.setDate(date.getDate() + 1);
+
+        // Format manually to ensure dd/mm/yyyy
+        const day = String(date.getDate()).padStart(2, "0");
+        const month = String(date.getMonth() + 1).padStart(2, "0");
+        const year = date.getFullYear();
+
+        formattedBirthdate = `${day}/${month}/${year}`;
+        console.log("Formatted birthdate (dd/mm/yyyy):", formattedBirthdate);
       } catch (error) {
         console.error("Error formatting date:", error);
         formattedBirthdate = birthdate; // fallback to original value
