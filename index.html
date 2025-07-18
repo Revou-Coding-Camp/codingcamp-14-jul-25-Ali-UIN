@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Muhammad Irfan Ali - Portfolio</title>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <!-- Header Section -->
+    <header class="header">
+      <div class="container">
+        <div class="logo">
+          <div class="logo-icon">🏢</div>
+          <h1>My Website</h1>
+        </div>
+        <nav class="navigation">
+          <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">Our Profile</a></li>
+            <li><a href="#services">Portofolio</a></li>
+            <li><a href="#contact">Message Us</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+      <div class="container">
+        <div class="hero-content">
+          <h2>Hi Harfi, Welcome To Website</h2>
+          <p>by muhammad irfan ali, selamat datang!</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+      <div class="container">
+        <div class="about-content">
+          <h2>10824279</h2>
+        </div>
+      </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="services">
+      <div class="container">
+        <h2>Our Headquarter</h2>
+        <div class="services-grid">
+          <div class="service-card">
+            <div class="service-icon">
+              <div class="icon-placeholder"></div>
+            </div>
+            <h3>Jakarta</h3>
+          </div>
+          <div class="service-card">
+            <div class="service-icon">
+              <div class="icon-placeholder"></div>
+            </div>
+            <h3>Bandung</h3>
+          </div>
+          <div class="service-card">
+            <div class="service-icon">
+              <div class="icon-placeholder"></div>
+            </div>
+            <h3>Surabaya</h3>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section with Message Form -->
+    <section id="contact" class="contact">
+      <div class="container">
+        <h2>Message Us</h2>
+        <div class="contact-content">
+          <!-- Message Form -->
+          <div class="message-form">
+            <form id="messageForm">
+              <div class="form-group">
+                <label for="name">Nama</label>
+                <input type="text" id="name" name="name" required />
+                <span class="error-message" id="nameError"></span>
+              </div>
+
+              <div class="form-group">
+                <label for="email">Tempat Lahir</label>
+                <input type="text" id="email" name="email" required />
+                <span class="error-message" id="emailError"></span>
+              </div>
+
+              <div class="form-group">
+                <label for="phone">Jenis Kelamin</label>
+                <div class="radio-group">
+                  <input
+                    type="radio"
+                    id="male"
+                    name="gender"
+                    value="Laki-laki"
+                  />
+                  <label for="male">Laki-laki</label>
+                  <input
+                    type="radio"
+                    id="female"
+                    name="gender"
+                    value="Perempuan"
+                  />
+                  <label for="female">Perempuan</label>
+                </div>
+                <span class="error-message" id="phoneError"></span>
+              </div>
+
+              <div class="form-group">
+                <label for="subject">Pesan</label>
+                <textarea
+                  id="subject"
+                  name="subject"
+                  rows="4"
+                  required
+                ></textarea>
+                <span class="error-message" id="subjectError"></span>
+              </div>
+
+              <button type="submit" class="submit-button">Submit</button>
+            </form>
+          </div>
+
+          <!-- Contact Info -->
+          <div class="contact-info">
+            <div class="contact-item">
+              <strong>Current Time:</strong>
+              <p>Fri Jan 01 2025 17:22:38 GMT+0700</p>
+            </div>
+            <div class="contact-item">
+              <strong>Nama:</strong>
+              <p>Muhammad Irfan Ali</p>
+            </div>
+            <div class="contact-item">
+              <strong>NIM:</strong>
+              <p>10824279</p>
+            </div>
+            <div class="contact-item">
+              <strong>Jenis Kelamin:</strong>
+              <p>Laki - Laki</p>
+            </div>
+            <div class="contact-item">
+              <strong>Pesan:</strong>
+              <p>Lihat Profil Saya Website</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container">
+        <p>&copy; 2025 Muhammad Irfan Ali. All rights reserved.</p>
+      </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+  </body>
+</html>

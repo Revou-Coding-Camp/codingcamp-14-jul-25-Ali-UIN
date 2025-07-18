@@ -1,0 +1,16 @@
+# Ignore C++ files
+*.cpp
+*.exe
+tempCodeRunnerFile.cpp
+
+# Ignore system files
+.DS_Store
+Thumbs.db
+
+# Ignore editor files
+*.swp
+*.swo
+*~
+
+# Ignore log files
+*.log
