@@ -47,11 +47,13 @@ document.addEventListener("DOMContentLoaded", function () {
     const displayGender = document.getElementById("displayGender");
     const displayMessage = document.getElementById("displayMessage");
 
-    if (displayName) displayName.textContent = name || "Muhammad Irfan Ali";
-    if (displayBirthplace) displayBirthplace.textContent = birthplace || "-";
-    if (displayGender)
-      displayGender.textContent = selectedGender ? selectedGender.value : "-";
-    if (displayMessage) displayMessage.textContent = message || "-";
+    // Update with current values, preserve existing values if form is empty
+    if (displayName && name) displayName.textContent = name;
+    if (displayBirthplace && birthplace)
+      displayBirthplace.textContent = birthplace;
+    if (displayGender && selectedGender)
+      displayGender.textContent = selectedGender.value;
+    if (displayMessage && message) displayMessage.textContent = message;
   }
 
   // Validation functions
@@ -169,17 +171,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
       // If all validations pass
       if (isNameValid && isBirthplaceValid && isGenderValid && isMessageValid) {
-        // Update contact info one final time
-        updateContactInfo();
-
         // Show success message
         alert(
           "Pesan berhasil dikirim! Informasi telah diperbarui di sebelah kanan."
         );
 
-        // Optional: Reset form
-        // form.reset();
-        // updateContactInfo();
+        // DON'T reset form and DON'T call updateContactInfo() again
+        // This preserves the values in the contact info display
       } else {
         alert("Mohon lengkapi semua field dengan benar!");
       }
@@ -294,6 +292,6 @@ document.addEventListener("DOMContentLoaded", function () {
     document.body.classList.add("loaded");
   });
 
-  // Initial setup
-  updateContactInfo();
+  // Initial setup - don't call updateContactInfo() to prevent reset
+  // updateContactInfo();
 });
