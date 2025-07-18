@@ -14,6 +14,13 @@ document.addEventListener("DOMContentLoaded", function () {
   const phoneError = document.getElementById("phoneError");
   const subjectError = document.getElementById("subjectError");
 
+  // Debug: Check if all elements are found
+  console.log("Form elements check:");
+  console.log("nameInput:", nameInput);
+  console.log("birthplaceInput:", birthplaceInput);
+  console.log("birthdateInput:", birthdateInput);
+  console.log("subjectInput:", subjectInput);
+
   // Validation patterns
   const patterns = {
     name: /^[a-zA-Z\s]{2,50}$/,
@@ -44,6 +51,9 @@ document.addEventListener("DOMContentLoaded", function () {
       'input[name="gender"]:checked'
     );
 
+    // Debug: log the birthdate value
+    console.log("Birthdate input value:", birthdate);
+
     // Update display elements
     const displayName = document.getElementById("displayName");
     const displayBirthplace = document.getElementById("displayBirthplace");
@@ -51,15 +61,24 @@ document.addEventListener("DOMContentLoaded", function () {
     const displayGender = document.getElementById("displayGender");
     const displayMessage = document.getElementById("displayMessage");
 
+    // Debug: check if display element exists
+    console.log("Display birthdate element:", displayBirthdate);
+
     // Format date to be more readable
     let formattedBirthdate = "-";
     if (birthdate) {
-      const date = new Date(birthdate);
-      formattedBirthdate = date.toLocaleDateString("id-ID", {
-        day: "2-digit",
-        month: "2-digit", 
-        year: "numeric"
-      });
+      try {
+        const date = new Date(birthdate);
+        formattedBirthdate = date.toLocaleDateString("id-ID", {
+          day: "2-digit",
+          month: "2-digit",
+          year: "numeric",
+        });
+        console.log("Formatted birthdate:", formattedBirthdate);
+      } catch (error) {
+        console.error("Error formatting date:", error);
+        formattedBirthdate = birthdate; // fallback to original value
+      }
     }
 
     // Always update with current values or keep existing if empty
@@ -71,6 +90,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
     if (displayBirthdate) {
       displayBirthdate.textContent = formattedBirthdate;
+      console.log("Updated display birthdate to:", formattedBirthdate);
     }
     if (displayGender) {
       displayGender.textContent = selectedGender ? selectedGender.value : "-";
@@ -203,9 +223,18 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   if (birthdateInput) {
+    console.log("Adding event listeners to birthdateInput");
     birthdateInput.addEventListener("blur", validateBirthdate);
-    birthdateInput.addEventListener("change", updateContactInfo);
-    birthdateInput.addEventListener("input", updateContactInfo);
+    birthdateInput.addEventListener("change", function (e) {
+      console.log("Date changed:", e.target.value);
+      updateContactInfo();
+    });
+    birthdateInput.addEventListener("input", function (e) {
+      console.log("Date input:", e.target.value);
+      updateContactInfo();
+    });
+  } else {
+    console.error("birthdateInput not found!");
   }
 
   if (genderInputs) {
