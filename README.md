@@ -45,10 +45,6 @@ A responsive portfolio website built with HTML, CSS, and JavaScript featuring:
 
 ## 👤 Author
 
-**Muhammad Irfan Ali**
-
-- NIM: 10824279
-- Website: [Live Demo](https://your-github-username.github.io/repository-name)
 
 ## 📱 Responsive Design
 
