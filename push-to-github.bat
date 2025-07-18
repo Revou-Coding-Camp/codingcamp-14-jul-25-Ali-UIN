@@ -1,18 +1,31 @@
 @echo off
-echo Pushing to GitHub...
-cd "c:\Users\Admin\New folder (2)"
+echo ========================================
+echo    PUSH TO GITHUB - MUHAMMAD IRFAN ALI
+echo ========================================
+echo.
+
+echo Step 1: Add remote origin...
+git remote add origin https://github.com/Ali-UIN/muhammad-irfan-ali-portfolio.git
+
+echo Step 2: Push to GitHub...
 git push -u origin master
+
 echo.
-echo Done! Your website is now on GitHub.
+echo ========================================
+echo    PUSH COMPLETED!
+echo ========================================
 echo.
-echo Next steps:
-echo 1. Go to your GitHub repository
-echo 2. Click on "Settings"
-echo 3. Scroll down to "Pages"
-echo 4. Select "Deploy from a branch" 
-echo 5. Choose "master" branch
-echo 6. Click "Save"
+echo Your portfolio is now available at:
+echo https://github.com/Ali-UIN/muhammad-irfan-ali-portfolio
 echo.
-echo Your website will be available at:
-echo https://YOUR-USERNAME.github.io/muhammad-irfan-ali-portfolio
+echo To enable GitHub Pages:
+echo 1. Go to repository Settings
+echo 2. Scroll to Pages section
+echo 3. Select "Deploy from a branch"
+echo 4. Choose "master" branch
+echo 5. Click Save
+echo.
+echo Your live website will be at:
+echo https://Ali-uin.github.io/muhammad-irfan-ali-portfolio/
+echo.
 pause
