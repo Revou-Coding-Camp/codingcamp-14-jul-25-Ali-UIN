@@ -96,6 +96,12 @@
               </div>
 
               <div class="form-group">
+                <label for="birthdate">Tanggal Lahir</label>
+                <input type="date" id="birthdate" name="birthdate" required />
+                <span class="error-message" id="birthdateError"></span>
+              </div>
+
+              <div class="form-group">
                 <label for="phone">Jenis Kelamin</label>
                 <div class="radio-group">
                   <input
@@ -144,6 +150,10 @@
             <div class="contact-item">
               <strong>Tempat Lahir:</strong>
               <p id="displayBirthplace">-</p>
+            </div>
+            <div class="contact-item">
+              <strong>Tanggal Lahir:</strong>
+              <p id="displayBirthdate">-</p>
             </div>
             <div class="contact-item">
               <strong>Jenis Kelamin:</strong>

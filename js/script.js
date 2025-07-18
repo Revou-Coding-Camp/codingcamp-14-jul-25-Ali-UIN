@@ -2,13 +2,15 @@
 document.addEventListener("DOMContentLoaded", function () {
   const form = document.getElementById("messageForm");
   const nameInput = document.getElementById("name");
-  const birthplaceInput = document.getElementById("birthplace"); // Changed from email to birthplace
+  const birthplaceInput = document.getElementById("birthplace");
+  const birthdateInput = document.getElementById("birthdate");
   const subjectInput = document.getElementById("subject");
   const genderInputs = document.querySelectorAll('input[name="gender"]');
 
   // Error message elements
   const nameError = document.getElementById("nameError");
-  const birthplaceError = document.getElementById("birthplaceError"); // Changed from emailError
+  const birthplaceError = document.getElementById("birthplaceError");
+  const birthdateError = document.getElementById("birthdateError");
   const phoneError = document.getElementById("phoneError");
   const subjectError = document.getElementById("subjectError");
 
@@ -36,6 +38,7 @@ document.addEventListener("DOMContentLoaded", function () {
   function updateContactInfo() {
     const name = nameInput.value.trim();
     const birthplace = birthplaceInput.value.trim();
+    const birthdate = birthdateInput.value;
     const message = subjectInput.value.trim();
     const selectedGender = document.querySelector(
       'input[name="gender"]:checked'
@@ -44,6 +47,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Update display elements
     const displayName = document.getElementById("displayName");
     const displayBirthplace = document.getElementById("displayBirthplace");
+    const displayBirthdate = document.getElementById("displayBirthdate");
     const displayGender = document.getElementById("displayGender");
     const displayMessage = document.getElementById("displayMessage");
 
@@ -53,6 +57,9 @@ document.addEventListener("DOMContentLoaded", function () {
     }
     if (displayBirthplace) {
       displayBirthplace.textContent = birthplace || "-";
+    }
+    if (displayBirthdate) {
+      displayBirthdate.textContent = birthdate || "-";
     }
     if (displayGender) {
       displayGender.textContent = selectedGender ? selectedGender.value : "-";
@@ -95,6 +102,33 @@ document.addEventListener("DOMContentLoaded", function () {
       return false;
     }
     clearError(birthplaceError);
+    updateContactInfo();
+    return true;
+  }
+
+  function validateBirthdate() {
+    const birthdate = birthdateInput.value;
+    if (!birthdate) {
+      showError(birthdateError, "Tanggal lahir wajib diisi");
+      return false;
+    }
+    
+    // Check if the date is not in the future
+    const selectedDate = new Date(birthdate);
+    const today = new Date();
+    if (selectedDate > today) {
+      showError(birthdateError, "Tanggal lahir tidak boleh di masa depan");
+      return false;
+    }
+    
+    // Check if the date is reasonable (not too far in the past)
+    const hundredYearsAgo = new Date(today.getFullYear() - 100, today.getMonth(), today.getDate());
+    if (selectedDate < hundredYearsAgo) {
+      showError(birthdateError, "Tanggal lahir tidak valid");
+      return false;
+    }
+    
+    clearError(birthdateError);
     updateContactInfo();
     return true;
   }
@@ -153,6 +187,11 @@ document.addEventListener("DOMContentLoaded", function () {
     birthplaceInput.addEventListener("input", updateContactInfo);
   }
 
+  if (birthdateInput) {
+    birthdateInput.addEventListener("blur", validateBirthdate);
+    birthdateInput.addEventListener("change", updateContactInfo);
+  }
+
   if (genderInputs) {
     genderInputs.forEach((radio) => {
       radio.addEventListener("change", validateGender);
@@ -172,14 +211,15 @@ document.addEventListener("DOMContentLoaded", function () {
       // Validate all fields
       const isNameValid = validateName();
       const isBirthplaceValid = validateBirthplace();
+      const isBirthdateValid = validateBirthdate();
       const isGenderValid = validateGender();
       const isMessageValid = validateMessage();
 
       // If all validations pass
-      if (isNameValid && isBirthplaceValid && isGenderValid && isMessageValid) {
+      if (isNameValid && isBirthplaceValid && isBirthdateValid && isGenderValid && isMessageValid) {
         // Update contact info one final time to ensure display is correct
         updateContactInfo();
-        
+
         // Show success message
         alert(
           "Pesan berhasil dikirim! Informasi telah diperbarui di sebelah kanan."
