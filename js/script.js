@@ -51,6 +51,17 @@ document.addEventListener("DOMContentLoaded", function () {
     const displayGender = document.getElementById("displayGender");
     const displayMessage = document.getElementById("displayMessage");
 
+    // Format date to be more readable
+    let formattedBirthdate = "-";
+    if (birthdate) {
+      const date = new Date(birthdate);
+      formattedBirthdate = date.toLocaleDateString("id-ID", {
+        day: "2-digit",
+        month: "2-digit", 
+        year: "numeric"
+      });
+    }
+
     // Always update with current values or keep existing if empty
     if (displayName) {
       displayName.textContent = name || "Muhammad Irfan Ali";
@@ -59,7 +70,7 @@ document.addEventListener("DOMContentLoaded", function () {
       displayBirthplace.textContent = birthplace || "-";
     }
     if (displayBirthdate) {
-      displayBirthdate.textContent = birthdate || "-";
+      displayBirthdate.textContent = formattedBirthdate;
     }
     if (displayGender) {
       displayGender.textContent = selectedGender ? selectedGender.value : "-";
@@ -112,7 +123,7 @@ document.addEventListener("DOMContentLoaded", function () {
       showError(birthdateError, "Tanggal lahir wajib diisi");
       return false;
     }
-    
+
     // Check if the date is not in the future
     const selectedDate = new Date(birthdate);
     const today = new Date();
@@ -120,14 +131,18 @@ document.addEventListener("DOMContentLoaded", function () {
       showError(birthdateError, "Tanggal lahir tidak boleh di masa depan");
       return false;
     }
-    
+
     // Check if the date is reasonable (not too far in the past)
-    const hundredYearsAgo = new Date(today.getFullYear() - 100, today.getMonth(), today.getDate());
+    const hundredYearsAgo = new Date(
+      today.getFullYear() - 100,
+      today.getMonth(),
+      today.getDate()
+    );
     if (selectedDate < hundredYearsAgo) {
       showError(birthdateError, "Tanggal lahir tidak valid");
       return false;
     }
-    
+
     clearError(birthdateError);
     updateContactInfo();
     return true;
@@ -190,6 +205,7 @@ document.addEventListener("DOMContentLoaded", function () {
   if (birthdateInput) {
     birthdateInput.addEventListener("blur", validateBirthdate);
     birthdateInput.addEventListener("change", updateContactInfo);
+    birthdateInput.addEventListener("input", updateContactInfo);
   }
 
   if (genderInputs) {
@@ -216,7 +232,13 @@ document.addEventListener("DOMContentLoaded", function () {
       const isMessageValid = validateMessage();
 
       // If all validations pass
-      if (isNameValid && isBirthplaceValid && isBirthdateValid && isGenderValid && isMessageValid) {
+      if (
+        isNameValid &&
+        isBirthplaceValid &&
+        isBirthdateValid &&
+        isGenderValid &&
+        isMessageValid
+      ) {
         // Update contact info one final time to ensure display is correct
         updateContactInfo();
 
